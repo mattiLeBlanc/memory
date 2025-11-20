@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memory Match</title>
+  <title>Resparke Memory Match</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body class="min-h-screen">
-  <main class="max-w-5xl mx-auto px-5 py-12">
+  <main class="max-w-6xl mx-auto px-5 py-6">
     <header class="flex flex-row items-start justify-between gap-6">
       <div>
         <h1 class="text-3xl md:text-4xl font-bold mb-2">Memory Match.</h1>
@@ -33,7 +33,20 @@
 
     <section id="message" class="message"></section>
 
-    <section id="board" class="grid grid-cols-3 sm:grid-cols-4 gap-4 mt-8 [perspective:1000px]" aria-label="Memory game board"></section>
+    <div class="relative mt-8">
+      <section id="board" class="grid grid-cols-3 sm:grid-cols-4 gap-4 [perspective:1000px]" aria-label="Memory game board"></section>
+
+      <div id="win-overlay" class="win-overlay">
+        <div class="win-card">
+          <div class="win-icon">🎉</div>
+          <h2>Congratulations!</h2>
+          <p>You found every pair. Want to go again?</p>
+          <div class="win-actions">
+            <button id="play-again" class="play-again">Play again</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script type="module" src="./main.js"></script>

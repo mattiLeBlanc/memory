@@ -52,6 +52,8 @@ const moves = document.querySelector<HTMLElement>("#moves");
 const matches = document.querySelector<HTMLElement>("#matches");
 const restart = document.querySelector<HTMLButtonElement>("#restart");
 const message = document.querySelector<HTMLElement>("#message");
+const winOverlay = document.querySelector<HTMLElement>("#win-overlay");
+const playAgain = document.querySelector<HTMLButtonElement>("#play-again");
 
 function shuffle<T>(list: T[]): T[] {
   const copy = [...list];
@@ -103,6 +105,7 @@ function markMatched(a: Card, b: Card): void {
   updateStats();
   if (isComplete()) {
     setMessage("<strong>Nice memory!</strong> All pairs found. Shuffle to go again.");
+    winOverlay?.classList.add("show");
   } else {
     setMessage("Nice pick! Keep going.");
   }
@@ -185,12 +188,14 @@ function resetGame(): void {
   deck = createDeck();
   updateStats();
   setMessage("Flip two cards to start. Remember their spots!");
+   winOverlay?.classList.remove("show");
   renderBoard();
 }
 
 function init(): void {
   if (!board || !moves || !matches || !restart) return;
   restart.addEventListener("click", resetGame);
+  playAgain?.addEventListener("click", resetGame);
   resetGame();
 }
 
