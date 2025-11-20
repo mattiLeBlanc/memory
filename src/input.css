@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: Poppins;
+    background: #000;
+    color: #e2e8f0;
+  }
+}
+
+@layer components {
+  .card {
+    @apply relative h-[150px] border-0 rounded-xl bg-transparent p-0 [perspective:inherit];
+  }
+
+  .card-inner {
+    @apply absolute inset-0 rounded-xl transition-transform duration-200 ease-linear shadow-xl [transform-style:preserve-3d] [transform:rotateY(180deg)];
+  }
+
+  .card.is-revealed .card-inner {
+    @apply [transform:rotateY(0deg)];
+  }
+
+  .face {
+    @apply absolute inset-0 grid place-items-center rounded-xl [backface-visibility:hidden];
+  }
+
+  .face.front {
+    @apply overflow-hidden text-slate-50 border border-cyan-300/50 bg-gradient-to-br from-cyan-500/40 to-cyan-500/5;
+  }
+
+  .face.back {
+    @apply text-slate-100 text-3xl bg-gradient-to-br from-[#8f79df] to-[#5233A6] [transform:rotateY(180deg)];
+  }
+
+  .face span {
+    @apply pointer-events-none;
+  }
+
+  .card.matched .face.front {
+    @apply border-amber-400/70 bg-gradient-to-br from-amber-400/60 to-amber-400/10;
+  }
+
+  .card-img {
+    @apply w-full h-full bg-cover bg-center;
+  }
+
+  .message {
+    @apply min-h-[24px] mt-3 text-slate-100 opacity-90;
+  }
+
+  .card:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-amber-400;
+  }
+}
