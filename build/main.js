@@ -20,7 +20,7 @@ function svgDataUri(emoji, colors) {
         </linearGradient>
       </defs>
       <rect width="200" height="260" rx="22" fill="url(#g)"/>
-      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI Emoji, sans-serif" font-size="120">${emoji}</text>
+      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI Emoji, sans-serif" font-size="100">${emoji}</text>
     </svg>
   `;
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
