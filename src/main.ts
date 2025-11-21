@@ -22,6 +22,7 @@ let firstPick: Card | null = null;
 let isLocked = false;
 let moveCount = 0;
 let matchCount = 0;
+let startTime: number | null = null;
 
 const board = document.querySelector<HTMLElement>("#board");
 const moves = document.querySelector<HTMLElement>("#moves");
@@ -30,6 +31,8 @@ const restart = document.querySelector<HTMLButtonElement>("#restart");
 const message = document.querySelector<HTMLElement>("#message");
 const winOverlay = document.querySelector<HTMLElement>("#win-overlay");
 const playAgain = document.querySelector<HTMLButtonElement>("#play-again");
+const winMoves = document.querySelector<HTMLElement>("#win-moves");
+const winTime = document.querySelector<HTMLElement>("#win-time");
 
 function shuffle<T>(list: T[]): T[] {
   const copy = [...list];
@@ -63,6 +66,23 @@ function setMessage(text: string): void {
   message.innerHTML = text;
 }
 
+function getElapsedMs(): number {
+  if (startTime === null) return 0;
+  return Date.now() - startTime;
+}
+
+function formatTime(ms: number): string {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+}
+
+function updateWinStats(): void {
+  if (winMoves) winMoves.textContent = moveCount.toString();
+  if (winTime) winTime.textContent = formatTime(getElapsedMs());
+}
+
 function flipCard(card: Card, faceUp: boolean): void {
   card.faceUp = faceUp;
   card.element.classList.toggle("is-revealed", faceUp);
@@ -81,6 +101,7 @@ function markMatched(a: Card, b: Card): void {
   updateStats();
   if (isComplete()) {
     setMessage("<strong>Nice memory!</strong> All pairs found. Shuffle to go again.");
+    updateWinStats();
     winOverlay?.classList.add("show");
   } else {
     setMessage("Nice pick! Keep going.");
@@ -97,6 +118,7 @@ function hideCards(a: Card, b: Card): void {
 
 function onCardClick(card: Card): void {
   if (isLocked || card.faceUp || card.matched) return;
+  if (startTime === null) startTime = Date.now();
   flipCard(card, true);
 
   if (!firstPick) {
@@ -161,10 +183,12 @@ function resetGame(): void {
   moveCount = 0;
   matchCount = 0;
   firstPick = null;
+  startTime = null;
   deck = createDeck();
   updateStats();
   setMessage("Flip two cards to start. Remember their spots!");
-   winOverlay?.classList.remove("show");
+  winOverlay?.classList.remove("show");
+  updateWinStats();
   renderBoard();
 }
 

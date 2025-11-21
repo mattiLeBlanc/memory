@@ -69,4 +69,8 @@
     @apply opacity-100 pointer-events-auto;
     transform: scale(1);
   }
+
+  .win-stats {
+    @apply font-semibold;
+  }
 }
