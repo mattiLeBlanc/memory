@@ -34,6 +34,14 @@
   .face.back {
     @apply text-slate-100 text-3xl bg-gradient-to-br from-[#8f79df] to-[#5233A6] [transform:rotateY(180deg)];
   }
+  .face.back::after {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 2px solid #66E0E0;
+    border-radius: calc(0.75rem - 3px);
+    pointer-events: none;
+  }
 
   .face span {
     @apply pointer-events-none;
@@ -47,9 +55,6 @@
     @apply w-full h-full bg-cover bg-center bg-no-repeat;
   }
 
-  .message {
-    @apply min-h-[24px] text-slate-100 opacity-90;
-  }
 
   .card:focus-visible {
     @apply outline outline-2 outline-offset-2 outline-amber-400;
