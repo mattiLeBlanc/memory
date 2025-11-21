@@ -28,6 +28,7 @@ const board = document.querySelector<HTMLElement>("#board");
 const moves = document.querySelector<HTMLElement>("#moves");
 const matches = document.querySelector<HTMLElement>("#matches");
 const restart = document.querySelector<HTMLButtonElement>("#restart");
+const instructions = document.querySelector<HTMLElement>("#instructions");
 const message = document.querySelector<HTMLElement>("#message");
 const winOverlay = document.querySelector<HTMLElement>("#win-overlay");
 const playAgain = document.querySelector<HTMLButtonElement>("#play-again");
@@ -116,9 +117,38 @@ function hideCards(a: Card, b: Card): void {
   }, 750);
 }
 
+function toggleInstructions(reset?: boolean) {
+  if (!instructions) return;
+  if (reset) {
+    instructions.classList.remove("hidden");
+  } else {
+    if (instructions.classList.contains("hidden")) {
+      instructions.classList.remove("hidden");
+    } else {
+      instructions.classList.add("hidden");
+    }
+  }
+}
+function toggleMessage(reset?: boolean) {
+  if (!message) return;
+  if (reset) {
+    message.classList.add("hidden");
+  } else {
+    if (message.classList.contains("hidden")) {
+      message.classList.remove("hidden");
+    } else {
+      message.classList.add("hidden");
+    }
+  }
+}
+
 function onCardClick(card: Card): void {
   if (isLocked || card.faceUp || card.matched) return;
-  if (startTime === null) startTime = Date.now();
+  if (startTime === null) {
+    startTime = Date.now();
+    toggleInstructions();
+    toggleMessage();
+  }
   flipCard(card, true);
 
   if (!firstPick) {
@@ -190,6 +220,8 @@ function resetGame(): void {
   winOverlay?.classList.remove("show");
   updateWinStats();
   renderBoard();
+  toggleInstructions(true);
+  toggleMessage(true);
 }
 
 function init(): void {
