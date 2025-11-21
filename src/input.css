@@ -12,7 +12,7 @@
 
 @layer components {
   .card {
-    @apply relative h-[150px] border-0 rounded-xl bg-transparent p-0 [perspective:inherit];
+    @apply relative h-[140px] border-0 rounded-xl bg-transparent p-0 [perspective:inherit];
   }
 
   .card-inner {
@@ -44,11 +44,11 @@
   }
 
   .card-img {
-    @apply w-full h-full bg-cover bg-center;
+    @apply w-full h-full bg-cover bg-center bg-no-repeat;
   }
 
   .message {
-    @apply min-h-[24px] mt-3 text-slate-100 opacity-90;
+    @apply min-h-[24px] text-slate-100 opacity-90;
   }
 
   .card:focus-visible {

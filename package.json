@@ -4,7 +4,7 @@
   "description": "memory match game",
   "main": "main.js",
   "scripts": {
-    "build": "tsc && tailwindcss -i ./src/input.css -o ./dist/styles.css --minify && mkdir -p dist && cp src/index.html dist/index.html",
+    "build": "tsc && tailwindcss -i ./src/input.css -o ./dist/styles.css --minify && mkdir -p dist && cp src/index.html dist/index.html && mkdir -p dist/assets && cp -R src/assets dist/",
     "build:js": "tsc",
     "build:css": "tailwindcss -i ./src/input.css -o ./dist/styles.css --minify",
     "dev:css": "tailwindcss -i ./src/input.css -o ./styles.css --watch",

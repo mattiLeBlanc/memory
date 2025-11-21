@@ -6,40 +6,16 @@ type Card = {
   element: HTMLButtonElement;
 };
 
-type Theme = {
-  emoji: string;
-  colors: [string, string];
-};
-
-const themes: Theme[] = [
-  { emoji: "🎄", colors: ["#0ea5e9", "#065f46"] },
-  { emoji: "🎁", colors: ["#ef4444", "#991b1b"] },
-  { emoji: "❄️", colors: ["#67e8f9", "#2563eb"] },
-  { emoji: "🔔", colors: ["#f59e0b", "#b45309"] },
-  { emoji: "🧦", colors: ["#22c55e", "#064e3b"] },
-  { emoji: "⛄", colors: ["#e0f2fe", "#0ea5e9"] },
-  { emoji: "🍪", colors: ["#f59e0b", "#7c2d12"] },
-  { emoji: "🕯️", colors: ["#e11d48", "#4c0519"] },
+const imagePaths = [
+  "./assets/img/bell.jpeg",
+  "./assets/img/cake.jpeg",
+  "./assets/img/candle.jpeg",
+  "./assets/img/christmas-tree.jpeg",
+  "./assets/img/church.jpeg",
+  "./assets/img/gift.jpeg",
+  "./assets/img/snowman.jpeg",
+  "./assets/img/sock.jpeg",
 ];
-
-function svgDataUri(emoji: string, colors: [string, string]): string {
-  const [from, to] = colors;
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260">
-      <defs>
-        <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="${from}" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="${to}" stop-opacity="0.9"/>
-        </linearGradient>
-      </defs>
-      <rect width="200" height="260" rx="22" fill="url(#g)"/>
-      <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI Emoji, sans-serif" font-size="100">${emoji}</text>
-    </svg>
-  `;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-}
-
-const themeImages = themes.map((t) => svgDataUri(t.emoji, t.colors));
 
 let deck: Card[] = [];
 let firstPick: Card | null = null;
@@ -65,7 +41,7 @@ function shuffle<T>(list: T[]): T[] {
 }
 
 function createDeck(): Card[] {
-  const doubled = [...themeImages, ...themeImages];
+  const doubled = [...imagePaths, ...imagePaths];
   const shuffled = shuffle(doubled);
 
   return shuffled.map((image, index) => ({
